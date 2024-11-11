@@ -3,7 +3,7 @@ const QRCode = require('qrcode');
 const { v4: uuidv4 } = require('uuid');
 
 // Register participant and generate QR code
-exports.registerParticipant = async (req, res) => {
+const registerParticipant = async (req, res) => {
   const { name, email } = req.body;
   const id = uuidv4();
   const qrCodeData = await QRCode.toDataURL(id);
@@ -15,7 +15,7 @@ exports.registerParticipant = async (req, res) => {
 };
 
 // Check-in participant by QR code
-exports.checkInParticipant = async (req, res) => {
+const checkInParticipant = async (req, res) => {
   const { qrCode } = req.body;  // UUID received from the QR code scan
 
   // Debugging: Log the UUID received in the request
@@ -40,4 +40,7 @@ exports.checkInParticipant = async (req, res) => {
 
   res.json({ message: "Check-in successful", participant });
 };
+
+
+module.exports={checkInParticipant,registerParticipant};
 
